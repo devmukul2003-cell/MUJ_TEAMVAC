@@ -1,173 +1,331 @@
-# 🚀 AI Resume Analyzer
+# TeamVAC--- Autonomous Multi-Surface Cleaning Robot
 
-AI-powered web application that analyzes resumes and provides ATS-style feedback, keyword matching, and improvement suggestions.
+## Hackathon Project --- MUJ HACKX 4.0
 
-This project uses a React + Vite frontend with an Express.js backend, MongoDB persistence, and OpenAI-powered analysis.
+**Team:** Vac\
+**Team ID:** 107\
+**Problem Statement:** Wild Card Innovation Challenge\
+**Theme:** Open Innovation
 
----
+------------------------------------------------------------------------
 
-## ✨ Features
+## 1. Overview
 
-* Analyze resume (paste text or upload PDF)
-* ATS-style scoring and feedback
-* Keyword match & missing keyword detection
-* AI-generated improvement suggestions
-* User authentication (JWT)
-* Save, view, and delete past analyses
-* Demo mode (no login required)
+Vac-Robo is an autonomous robotic cleaning system designed to extend
+robotic cleaning beyond conventional floors to **vertical walls, glass,
+stairs, and inclined surfaces**.
 
----
+The project addresses a simple but important problem: floor-cleaning
+robots are already common, while cleaning vertical and elevated surfaces
+still requires significant manual effort and can involve safety risks.
 
-## 🏗️ Tech Stack
+Vac-Robo combines **vacuum-based adhesion, motorized mobility, cleaning,
+sensing, and embedded control** into a single compact robotic platform.
 
-* **Frontend:** React, Vite, Tailwind CSS
-* **Backend:** Node.js, Express.js
-* **Database:** MongoDB + Mongoose
-* **AI/NLP:** OpenAI API
-* **Resume parsing:** PDF parsing via pdf-parse
+> **One robot. Every surface.**
 
----
+------------------------------------------------------------------------
 
-## 📸 Screenshots
+## 2. Problem
 
-### 🚀 Landing Experience
-<p align="center">
-  <img src="docs/screenshots/1_landing1.png" width="45%"/>
-  <img src="docs/screenshots/2_landing2.png" width="45%"/>
-</p>
+Conventional robotic vacuum cleaners primarily operate on floors.
+Cleaning walls, glass, stairs, and other elevated surfaces often remains
+manual.
 
-<p align="center">
-  <img src="docs/screenshots/3_landing3.png" width="60%"/>
-</p>
+This creates three major challenges:
 
-### 🧠 Resume Analyzer
-<p align="center">
-  <img src="docs/screenshots/4_analyzer.png" width="70%"/>
-</p>
+-   **Limited vertical reach** --- conventional robotic cleaners are
+    designed mainly for floors.
+-   **Manual risk and cost** --- elevated and vertical cleaning can be
+    slow, labour-intensive, and unsafe.
+-   **Limited multi-surface automation** --- intelligent cleaning has
+    advanced significantly on floors, but autonomous multi-surface
+    cleaning remains comparatively uncommon.
 
-### 📊 Results & Insights
-<p align="center">
-  <img src="docs/screenshots/5_result.png" width="70%"/>
-</p>
+------------------------------------------------------------------------
 
-### 📌 Detailed Feedback
-<p align="center">
-  <img src="docs/screenshots/6_details1.png" width="45%"/>
-  <img src="docs/screenshots/7_details2.png" width="45%"/>
-</p>
+## 3. Our Solution
 
----
+Vac-Robo uses a **vacuum adhesion mechanism** to maintain contact with a
+vertical surface while its drive system moves the robot.
 
-## ⚙️ Setup (Local)
+The complete robot combines:
 
-```bash
-# Clone repo
-git clone https://github.com/<your-user>/<your-repo>.git
-cd AI-Resume-Analyzer-main
+-   Vacuum adhesion
+-   Motorized wheel assembly
+-   Stabilization and suspension mechanisms
+-   Cleaning mechanism
+-   Embedded controller
+-   Sensor-based navigation
+-   Obstacle detection
+-   Autonomous motion control
+
+The current hardware platform has been physically built. The remaining
+major development step is to move from direct/manual control to
+**wireless autonomous control using a transmitter and receiver
+architecture**.
+
+------------------------------------------------------------------------
+
+## 4. Current Development Status
+
+### Hardware --- Completed
+
+The physical robot has been assembled and the major mechanical and
+electronic systems are in place.
+
+The working system includes:
+
+-   Wall-climbing body
+-   Vacuum/suction system
+-   Drive motors
+-   Motor controllers/ESCs
+-   ESP32-based control electronics
+-   Battery power system
+-   Cleaning/brush mechanism
+-   Mechanical suspension/stabilization
+-   3D-printed mechanical components
+
+### Control --- Final Development Stage
+
+The robot is currently controllable through the ESP32.
+
+The next step is to implement:
+
+**Transmitter → Wireless communication → Receiver ESP32 → Motor/actuator
+control**
+
+This will eliminate the need for a direct wired control connection and
+provide the foundation for autonomous operation.
+
+------------------------------------------------------------------------
+
+## 5. Automation Architecture
+
+The planned control architecture is:
+
+``` text
+┌──────────────────────┐
+│   TRANSMITTER ESP32  │
+│                      │
+│ • User commands      │
+│ • Joystick/buttons   │
+│ • Speed control      │
+└──────────┬───────────┘
+           │
+           │ Wireless
+           ▼
+┌──────────────────────┐
+│    RECEIVER ESP32    │
+│                      │
+│ • Receives commands  │
+│ • Processes commands │
+│ • Safety handling    │
+└──────────┬───────────┘
+           │
+     ┌─────┴─────┐
+     ▼           ▼
+┌──────────┐ ┌──────────────┐
+│ Drive    │ │ Vacuum /     │
+│ Motors   │ │ Cleaning     │
+│ ESC      │ │ System       │
+└──────────┘ └──────────────┘
 ```
 
-### Server
+The receiver will act as the robot's main control node. The transmitter
+will send movement and system commands wirelessly.
 
-```powershell
-cd server
-npm install
-```
+------------------------------------------------------------------------
 
-Create a `.env` file in the `server` folder:
+## 6. Technical Approach
 
-```env
-PORT=5000
-CLIENT_URL=http://localhost:5173
-MONGODB_URI=mongodb://127.0.0.1:27017/resume-analyzer
-JWT_SECRET=your_secret_key
-OPENAI_API_KEY=your_openai_api_key
-OPENAI_MODEL=gpt-4o-mini
-```
+### Mechanical System
 
-Then start the backend:
+The mechanical design focuses on maintaining stable contact with a
+surface while allowing the robot to move.
 
-```powershell
-npm run dev
-```
+Key elements include:
 
-### Client
+-   Vacuum adhesion mechanism
+-   Linear actuator/suspension mechanism
+-   Motorized wheel modules
+-   Stabilization system
+-   Compact modular body
+-   Cleaning assembly
 
-```powershell
-cd client
-npm install
-copy .env.example .env
-```
+### Smart Systems
 
-Then start the frontend:
+The planned intelligent control system includes:
 
-```powershell
-npm run dev
-```
+-   Sensor-based navigation
+-   Obstacle detection
+-   Autonomous motion control
+-   Adhesion monitoring
+-   Future AI-based debris/object recognition
 
-Use the default Vite URL:
+### Electronics & Embedded Control
 
-```text
-http://localhost:5173
-```
+The system uses ESP32-based embedded control.
 
----
+The ESP32 handles communication and control signals for the robot's:
 
-## 🔐 Environment Variables
+-   Drive system
+-   Vacuum system
+-   Cleaning system
+-   Sensors
+-   Future autonomous functions
 
-The app expects these values in `server/.env` and `client/.env`.
+------------------------------------------------------------------------
 
-```env
-# server/.env
-PORT=5000
-CLIENT_URL=http://localhost:5173
-MONGODB_URI=mongodb://127.0.0.1:27017/resume-analyzer
-JWT_SECRET=your_secret_key
-OPENAI_API_KEY=your_openai_api_key
-OPENAI_MODEL=gpt-4o-mini
-```
+## 7. Key Innovation
 
-```env
-# client/.env
-VITE_API_BASE_URL=http://localhost:5000
-```
+Vac-Robo is not simply a robotic vacuum cleaner.
 
----
+Its main innovation is the combination of:
 
-## 🧠 How It Works
+**Cleaning + Vacuum Adhesion + Multi-Surface Mobility + Intelligent
+Control**
 
-```text
-React/Vite → Express.js → MongoDB + OpenAI API
-```
+This allows the same robotic platform to target surfaces that
+conventional floor-cleaning robots cannot easily reach.
 
-* Frontend sends resume data
-* Backend validates and parses uploaded PDF files
-* OpenAI generates structured ATS feedback
-* Results can be saved to MongoDB
+------------------------------------------------------------------------
 
----
+## 8. Feasibility
 
-## 📌 Notes
+The concept is based on established technologies that can be integrated
+into a single robotic platform.
 
-* Without `OPENAI_API_KEY`, the analyzer uses local keyword and structure analysis for offline functionality.
-* The API accepts pasted text, uploaded PDF files, and DOCX files.
-* The frontend connects to the backend via `VITE_API_BASE_URL` environment variable.
-* Install the optional spaCy model for entity-aware NLP features: `python -m spacy download en_core_web_sm`.
+The project research references work on:
 
-## 🌐 Publish on GitHub Pages
+-   Glass and façade-cleaning robots
+-   Wall-climbing mechanisms
+-   Vacuum-based adhesion
+-   Adhesion-aware control
+-   Coverage path planning
+-   Multi-surface robotic mobility
 
-1. Create a GitHub repository and push this project to the `main` branch.
-2. Deploy the `backend` folder as a Render Web Service with:
+The project presentation also identifies service robotics and
+professional robotics as growing markets, supporting the potential for
+robotic cleaning solutions beyond conventional floor cleaning.
 
-  ```text
-  Build command: npm install
-  Start command: node index.js
-  ```
+------------------------------------------------------------------------
 
-3. Set the MongoDB URI and JWT secret as environment variables on Render.
-4. Copy the Render service URL and update `VITE_API_BASE_URL` in your `.env` file.
-5. Deploy the `client` folder to GitHub Pages using the included workflow.
-6. In GitHub, open **Settings > Pages** and set the source to **GitHub Actions**.
+## 9. Applications
 
----
+Vac-Robo can potentially be adapted for:
 
-⭐ Star the repo if you found it useful!
+-   Residential walls and windows
+-   Commercial buildings
+-   Glass façades
+-   Hotels
+-   Hospitals
+-   Shopping malls
+-   Industrial cleaning
+-   Elevated or difficult-to-access surfaces
+
+------------------------------------------------------------------------
+
+## 10. Future Development
+
+After completing the transmitter/receiver system, development will focus
+on progressively increasing autonomy:
+
+### Phase 1 --- Wireless Control
+
+-   ESP32 transmitter
+-   ESP32 receiver
+-   Wireless command transmission
+-   Drive and vacuum control
+
+### Phase 2 --- Sensor Integration
+
+-   Distance/obstacle sensing
+-   Adhesion monitoring
+-   Surface detection
+
+### Phase 3 --- Autonomous Navigation
+
+-   Automatic movement
+-   Obstacle avoidance
+-   Surface coverage planning
+
+### Phase 4 --- Intelligent Cleaning
+
+-   AI-assisted debris recognition
+-   Adaptive cleaning
+-   Automated coverage optimization
+
+### Phase 5 --- Full Autonomous Operation
+
+The long-term goal is for Vac-Robo to receive a cleaning task and
+perform the required movement and cleaning with minimal human
+intervention.
+
+------------------------------------------------------------------------
+
+## 11. Impact
+
+Vac-Robo aims to reduce the need for manual cleaning of
+difficult-to-access surfaces.
+
+Expected benefits include:
+
+-   Improved cleaning safety
+-   Reduced dependence on manual elevated cleaning
+-   Reduced labour requirements for repetitive cleaning
+-   Increased accessibility of robotic cleaning
+-   A reusable platform for multi-surface cleaning applications
+
+------------------------------------------------------------------------
+
+## 12. Research Basis
+
+The project research includes academic work on glass/façade-cleaning
+robots, wall-climbing mechanisms, adhesion-aware control, dynamic
+modelling, coverage path planning, and vacuum-suction adhesion.
+
+Market research included service robotics and professional service
+robotics forecasts.
+
+Full citations, DOIs, and report links are maintained in the project
+documentation.
+
+------------------------------------------------------------------------
+
+## 13. Team
+
+### Team Vac
+
+**Team ID:** 107
+
+The team is developing Vac-Robo as an open-innovation robotics project
+for MUJ HACKX 4.0.
+
+------------------------------------------------------------------------
+
+## 14. Project Status
+
+**Mechanical System:** ✅ Built\
+**Electronic System:** ✅ Built\
+**Motor Control:** ✅ Working\
+**Vacuum/Adhesion System:** ✅ Built\
+**ESP32 Control:** ✅ Working\
+**Wireless Transmitter:** 🔄 In Development\
+**Wireless Receiver:** 🔄 In Development\
+**Autonomous Navigation:** 🔜 Next Stage\
+**Full Autonomous Cleaning:** 🔜 Future Stage
+
+------------------------------------------------------------------------
+
+## 15. Conclusion
+
+Vac-Robo aims to take robotic cleaning from **"floor only" to
+"multi-surface."**
+
+The physical robot has already been developed. The current focus is on
+completing the wireless transmitter/receiver control system and then
+building progressively toward autonomous navigation and intelligent
+cleaning.
+
+**Vac-Robo --- One robot. Every surface.**
